@@ -74,6 +74,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.Controls.Add(btnLeftDir);
             panel1.Controls.Add(lblAppname);
             panel1.Location = new Point(3, 3);
@@ -83,6 +84,7 @@
             // 
             // btnLeftDir
             // 
+            btnLeftDir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLeftDir.Location = new Point(282, 14);
             btnLeftDir.Name = "btnLeftDir";
             btnLeftDir.Size = new Size(75, 23);
@@ -92,12 +94,14 @@
             // 
             // btnCopyFromLeft
             // 
+            btnCopyFromLeft.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCopyFromLeft.Location = new Point(282, 7);
             btnCopyFromLeft.Name = "btnCopyFromLeft";
             btnCopyFromLeft.Size = new Size(75, 23);
             btnCopyFromLeft.TabIndex = 2;
             btnCopyFromLeft.Text = "폴더선택";
             btnCopyFromLeft.UseVisualStyleBackColor = true;
+            btnCopyFromLeft.Click += btnCopyFromLeft_Click;
             // 
             // btnRightDir
             // 
@@ -110,6 +114,7 @@
             // 
             // txtLeftDir
             // 
+            txtLeftDir.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtLeftDir.Location = new Point(3, 7);
             txtLeftDir.Name = "txtLeftDir";
             txtLeftDir.Size = new Size(273, 23);
@@ -117,6 +122,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel2.Controls.Add(btnRightDir);
             panel2.Location = new Point(8, 5);
             panel2.Name = "panel2";
@@ -125,6 +131,7 @@
             // 
             // panel3
             // 
+            panel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel3.Controls.Add(btnCopyFromLeft);
             panel3.Controls.Add(txtLeftDir);
             panel3.Location = new Point(3, 59);
@@ -134,6 +141,7 @@
             // 
             // splitContainer1
             // 
+            splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             splitContainer1.Location = new Point(12, 12);
             splitContainer1.Name = "splitContainer1";
             // 
@@ -142,6 +150,7 @@
             splitContainer1.Panel1.Controls.Add(panel5);
             splitContainer1.Panel1.Controls.Add(panel1);
             splitContainer1.Panel1.Controls.Add(panel3);
+            splitContainer1.Panel1.Paint += splitContainer1_Panel1_Paint;
             // 
             // splitContainer1.Panel2
             // 
@@ -154,6 +163,7 @@
             // 
             // panel5
             // 
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel5.Controls.Add(lvwLeftDir);
             panel5.Location = new Point(3, 107);
             panel5.Name = "panel5";
@@ -162,6 +172,7 @@
             // 
             // lvwLeftDir
             // 
+            lvwLeftDir.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lvwLeftDir.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
             lvwLeftDir.FullRowSelect = true;
             lvwLeftDir.GridLines = true;
@@ -188,6 +199,7 @@
             // 
             // panel6
             // 
+            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel6.Controls.Add(lvwRightDir);
             panel6.Location = new Point(8, 107);
             panel6.Name = "panel6";
@@ -196,6 +208,7 @@
             // 
             // lvwRightDir
             // 
+            lvwRightDir.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lvwRightDir.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6 });
             lvwRightDir.FullRowSelect = true;
             lvwRightDir.GridLines = true;
@@ -222,6 +235,7 @@
             // 
             // panel4
             // 
+            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel4.Controls.Add(btnCopyFromRight);
             panel4.Controls.Add(txtRightDir);
             panel4.Location = new Point(8, 59);
@@ -231,15 +245,18 @@
             // 
             // btnCopyFromRight
             // 
+            btnCopyFromRight.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCopyFromRight.Location = new Point(280, 7);
             btnCopyFromRight.Name = "btnCopyFromRight";
             btnCopyFromRight.Size = new Size(75, 23);
             btnCopyFromRight.TabIndex = 2;
             btnCopyFromRight.Text = "폴더선택";
             btnCopyFromRight.UseVisualStyleBackColor = true;
+            btnCopyFromRight.Click += btnCopyFromRight_Click;
             // 
             // txtRightDir
             // 
+            txtRightDir.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtRightDir.Location = new Point(3, 6);
             txtRightDir.Name = "txtRightDir";
             txtRightDir.Size = new Size(271, 23);
