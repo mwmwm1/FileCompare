@@ -53,12 +53,32 @@ namespace FileCompare
 
         private void btnLeftDir_Click(object sender, EventArgs e)
         {
+            if (lvwLeftDir.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("복사할 파일을 왼쪽에서 선택해주세요.");
+                return;
+            }
 
+            string fileName = lvwLeftDir.SelectedItems[0].Text;
+            string sourceFullPath = Path.Combine(txtLeftDir.Text, fileName);
+            string targetFullPath = Path.Combine(txtRightDir.Text, fileName);
+
+            CopyFile(sourceFullPath, targetFullPath);
         }
 
         private void btnRightDir_Click(object sender, EventArgs e)
         {
+            if (lvwRightDir.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("복사할 파일을 오른쪽에서 선택해주세요.");
+                return;
+            }
 
+            string fileName = lvwRightDir.SelectedItems[0].Text;
+            string sourceFullPath = Path.Combine(txtRightDir.Text, fileName);
+            string targetFullPath = Path.Combine(txtLeftDir.Text, fileName);
+
+            CopyFile(sourceFullPath, targetFullPath);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -125,6 +145,46 @@ namespace FileCompare
                     }
                     lvwRightDir.Items.Add(item);
                 }
+            }
+        }
+        private void CopyFile(string sourcePath, string targetPath)
+        {
+            try
+            {
+                FileInfo sourceFile = new FileInfo(sourcePath);
+                FileInfo targetFile = new FileInfo(targetPath);
+
+                // 1. 대상 폴더에 동일한 이름의 파일이 있는지 확인
+                if (targetFile.Exists)
+                {
+                    // 수정된 날짜 비교 (이미지 13페이지 내용 반영)
+                    string msg = $"대상에 동일한 이름의 파일이 이미 있습니다.\n";
+
+                    if (sourceFile.LastWriteTime > targetFile.LastWriteTime)
+                        msg += "원본 파일이 더 신규 파일입니다. 덮어쓰시겠습니까?\n\n";
+                    else
+                        msg += "대상 파일이 더 신규 파일이거나 같습니다. 그래도 덮어쓰시겠습니까?\n\n";
+
+                    msg += $"원본: {sourceFile.LastWriteTime}\n";
+                    msg += $"대상: {targetFile.LastWriteTime}";
+
+                    // 사용자에게 "확인" 받아 진행여부 결정
+                    if (MessageBox.Show(msg, "덮어쓰기 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return; // '아니오' 누르면 복사 중단
+                    }
+                }
+
+                // 2. 파일 복사 실행
+                File.Copy(sourcePath, targetPath, true);
+                MessageBox.Show("복사가 완료되었습니다.");
+
+                // 3. 복사 후 리스트 갱신 (색상 다시 계산)
+                CompareFolders();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"복사 중 오류 발생: {ex.Message}");
             }
         }
     }
