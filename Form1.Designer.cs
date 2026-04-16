@@ -91,6 +91,7 @@
             btnLeftDir.TabIndex = 1;
             btnLeftDir.Text = ">>>";
             btnLeftDir.UseVisualStyleBackColor = true;
+            btnLeftDir.Click += btnLeftDir_Click;
             // 
             // btnCopyFromLeft
             // 
@@ -111,6 +112,7 @@
             btnRightDir.TabIndex = 3;
             btnRightDir.Text = "<<<";
             btnRightDir.UseVisualStyleBackColor = true;
+            btnRightDir.Click += btnRightDir_Click;
             // 
             // txtLeftDir
             // 
@@ -182,6 +184,7 @@
             lvwLeftDir.TabIndex = 0;
             lvwLeftDir.UseCompatibleStateImageBehavior = false;
             lvwLeftDir.View = View.Details;
+            lvwLeftDir.SelectedIndexChanged += lvwLeftDir_SelectedIndexChanged;
             // 
             // columnHeader1
             // 
@@ -218,6 +221,7 @@
             lvwRightDir.TabIndex = 1;
             lvwRightDir.UseCompatibleStateImageBehavior = false;
             lvwRightDir.View = View.Details;
+            lvwRightDir.SelectedIndexChanged += lvwRightDir_SelectedIndexChanged;
             // 
             // columnHeader4
             // 
@@ -270,6 +274,7 @@
             Controls.Add(splitContainer1);
             Name = "Form1";
             Text = "File Compare v1.0";
+            Load += Form1_Load;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);

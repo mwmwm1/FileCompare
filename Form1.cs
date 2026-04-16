@@ -11,70 +11,27 @@ namespace FileCompare
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                // 2. 사용자가 폴더를 선택하고 '확인'을 눌렀을 때만 실행
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    // 경로를 텍스트박스에 표시
+                    // 텍스트박스에 경로 표시
                     txtLeftDir.Text = fbd.SelectedPath;
-
-                    // 리스트뷰 초기화 (기존 목록 지우기)
-                    lvwLeftDir.Items.Clear();
-
-                    // 3. 선택된 폴더 내의 파일 정보를 가져옴
-                    DirectoryInfo di = new DirectoryInfo(fbd.SelectedPath);
-
-                    // 4. 각 파일 정보를 ListViewItem으로 만들어 추가
-                    foreach (FileInfo file in di.GetFiles())
-                    {
-                        // 첫 번째 컬럼: 파일 이름
-                        ListViewItem item = new ListViewItem(file.Name);
-
-                        // 두 번째 컬럼: 크기 (KB 단위로 변환 후 쉼표 포맷)
-                        long sizeKB = file.Length / 1024;
-                        item.SubItems.Add(sizeKB.ToString("N0") + " KB");
-
-                        // 세 번째 컬럼: 수정일 (날짜 포맷 지정)
-                        item.SubItems.Add(file.LastWriteTime.ToString("yyyy-MM-dd HH:mm"));
-
-                        // 리스트뷰에 최종 추가
-                        lvwLeftDir.Items.Add(item);
-                    }
+                    // 비교 함수 호출 (아래 2번에서 만들 함수)
+                    CompareFolders();
                 }
             }
+
         }
 
         private void btnCopyFromRight_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                // 2. 사용자가 폴더를 선택하고 '확인'을 눌렀을 때만 실행
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    // 경로를 텍스트박스에 표시
+                    // 텍스트박스에 경로 표시
                     txtRightDir.Text = fbd.SelectedPath;
-
-                    // 리스트뷰 초기화 (기존 목록 지우기)
-                    lvwRightDir.Items.Clear();
-
-                    // 3. 선택된 폴더 내의 파일 정보를 가져옴
-                    DirectoryInfo di = new DirectoryInfo(fbd.SelectedPath);
-
-                    // 4. 각 파일 정보를 ListViewItem으로 만들어 추가
-                    foreach (FileInfo file in di.GetFiles())
-                    {
-                        // 첫 번째 컬럼: 파일 이름
-                        ListViewItem item = new ListViewItem(file.Name);
-
-                        // 두 번째 컬럼: 크기 (KB 단위로 변환 후 쉼표 포맷)
-                        long sizeKB = file.Length / 1024;
-                        item.SubItems.Add(sizeKB.ToString("N0") + " KB");
-
-                        // 세 번째 컬럼: 수정일 (날짜 포맷 지정)
-                        item.SubItems.Add(file.LastWriteTime.ToString("yyyy-MM-dd HH:mm"));
-
-                        // 리스트뷰에 최종 추가
-                        lvwRightDir.Items.Add(item);
-                    }
+                    // 비교 함수 호출
+                    CompareFolders();
                 }
             }
         }
@@ -83,5 +40,94 @@ namespace FileCompare
         {
 
         }
+
+        private void lvwLeftDir_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvwRightDir_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLeftDir_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRightDir_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void CompareFolders()
+        {
+            // 리스트뷰 초기화
+            lvwLeftDir.Items.Clear();
+            lvwRightDir.Items.Clear();
+
+            // 경로 정보 가져오기
+            string leftPath = txtLeftDir.Text;
+            string rightPath = txtRightDir.Text;
+
+            DirectoryInfo leftDir = Directory.Exists(leftPath) ? new DirectoryInfo(leftPath) : null;
+            DirectoryInfo rightDir = Directory.Exists(rightPath) ? new DirectoryInfo(rightPath) : null;
+
+            // 비교를 위한 딕셔너리 준비
+            var leftDict = new Dictionary<string, FileInfo>();
+            var rightDict = new Dictionary<string, FileInfo>();
+
+            if (leftDir != null) foreach (var f in leftDir.GetFiles()) leftDict[f.Name] = f;
+            if (rightDir != null) foreach (var f in rightDir.GetFiles()) rightDict[f.Name] = f;
+
+            // --- 왼쪽 리스트뷰 채우기 (경로가 있을 때만) ---
+            if (leftDir != null)
+            {
+                foreach (var fName in leftDict.Keys)
+                {
+                    FileInfo f = leftDict[fName];
+                    ListViewItem item = new ListViewItem(f.Name);
+                    item.SubItems.Add((f.Length / 1024).ToString("N0") + " KB");
+                    item.SubItems.Add(f.LastWriteTime.ToString("yyyy-MM-dd HH:mm"));
+
+                    // 오른쪽 폴더도 선택된 상태라면 색상 비교 실행
+                    if (rightDir != null)
+                    {
+                        if (!rightDict.ContainsKey(fName)) item.ForeColor = Color.Purple;
+                        else if (f.LastWriteTime > rightDict[fName].LastWriteTime) item.ForeColor = Color.Red;
+                        else if (f.LastWriteTime < rightDict[fName].LastWriteTime) item.ForeColor = Color.Gray;
+                    }
+                    lvwLeftDir.Items.Add(item);
+                }
+            }
+
+            // --- 오른쪽 리스트뷰 채우기 (경로가 있을 때만) ---
+            if (rightDir != null)
+            {
+                foreach (var fName in rightDict.Keys)
+                {
+                    FileInfo f = rightDict[fName];
+                    ListViewItem item = new ListViewItem(f.Name);
+                    item.SubItems.Add((f.Length / 1024).ToString("N0") + " KB");
+                    item.SubItems.Add(f.LastWriteTime.ToString("yyyy-MM-dd HH:mm"));
+
+                    // 왼쪽 폴더도 선택된 상태라면 색상 비교 실행
+                    if (leftDir != null)
+                    {
+                        if (!leftDict.ContainsKey(fName)) item.ForeColor = Color.Purple;
+                        else if (f.LastWriteTime > leftDict[fName].LastWriteTime) item.ForeColor = Color.Red;
+                        else if (f.LastWriteTime < leftDict[fName].LastWriteTime) item.ForeColor = Color.Gray;
+                    }
+                    lvwRightDir.Items.Add(item);
+                }
+            }
+        }
     }
 }
+    
+
