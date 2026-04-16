@@ -37,13 +37,19 @@
             panel2 = new Panel();
             panel3 = new Panel();
             splitContainer1 = new SplitContainer();
+            panel5 = new Panel();
+            lvwLeftDir = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            panel6 = new Panel();
+            lvwRightDir = new ListView();
+            columnHeader4 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
             panel4 = new Panel();
             btnCopyFromRight = new Button();
             txtRightDir = new TextBox();
-            panel5 = new Panel();
-            panel6 = new Panel();
-            lvwLeftDir = new ListView();
-            lvwRightDir = new ListView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -51,14 +57,15 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // lblAppname
             // 
             lblAppname.Font = new Font("맑은 고딕", 20F);
+            lblAppname.ForeColor = SystemColors.MenuHighlight;
             lblAppname.Location = new Point(3, 3);
             lblAppname.Name = "lblAppname";
             lblAppname.Size = new Size(218, 41);
@@ -94,7 +101,7 @@
             // 
             // btnRightDir
             // 
-            btnRightDir.Location = new Point(14, 12);
+            btnRightDir.Location = new Point(3, 12);
             btnRightDir.Name = "btnRightDir";
             btnRightDir.Size = new Size(75, 23);
             btnRightDir.TabIndex = 3;
@@ -145,6 +152,74 @@
             splitContainer1.SplitterDistance = 385;
             splitContainer1.TabIndex = 8;
             // 
+            // panel5
+            // 
+            panel5.Controls.Add(lvwLeftDir);
+            panel5.Location = new Point(3, 107);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(370, 304);
+            panel5.TabIndex = 7;
+            // 
+            // lvwLeftDir
+            // 
+            lvwLeftDir.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
+            lvwLeftDir.FullRowSelect = true;
+            lvwLeftDir.GridLines = true;
+            lvwLeftDir.Location = new Point(3, 3);
+            lvwLeftDir.Name = "lvwLeftDir";
+            lvwLeftDir.Size = new Size(364, 298);
+            lvwLeftDir.TabIndex = 0;
+            lvwLeftDir.UseCompatibleStateImageBehavior = false;
+            lvwLeftDir.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "이름";
+            columnHeader1.Width = 200;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "크기";
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "수정일";
+            columnHeader3.Width = 100;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(lvwRightDir);
+            panel6.Location = new Point(8, 107);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(370, 304);
+            panel6.TabIndex = 8;
+            // 
+            // lvwRightDir
+            // 
+            lvwRightDir.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6 });
+            lvwRightDir.FullRowSelect = true;
+            lvwRightDir.GridLines = true;
+            lvwRightDir.Location = new Point(3, 3);
+            lvwRightDir.Name = "lvwRightDir";
+            lvwRightDir.Size = new Size(364, 298);
+            lvwRightDir.TabIndex = 1;
+            lvwRightDir.UseCompatibleStateImageBehavior = false;
+            lvwRightDir.View = View.Details;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "이름";
+            columnHeader4.Width = 200;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "크기";
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "수정일";
+            columnHeader6.Width = 100;
+            // 
             // panel4
             // 
             panel4.Controls.Add(btnCopyFromRight);
@@ -170,38 +245,6 @@
             txtRightDir.Size = new Size(271, 23);
             txtRightDir.TabIndex = 3;
             // 
-            // panel5
-            // 
-            panel5.Controls.Add(lvwLeftDir);
-            panel5.Location = new Point(3, 107);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(370, 287);
-            panel5.TabIndex = 7;
-            // 
-            // panel6
-            // 
-            panel6.Controls.Add(lvwRightDir);
-            panel6.Location = new Point(8, 107);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(370, 287);
-            panel6.TabIndex = 8;
-            // 
-            // lvwLeftDir
-            // 
-            lvwLeftDir.Location = new Point(3, 3);
-            lvwLeftDir.Name = "lvwLeftDir";
-            lvwLeftDir.Size = new Size(364, 281);
-            lvwLeftDir.TabIndex = 0;
-            lvwLeftDir.UseCompatibleStateImageBehavior = false;
-            // 
-            // lvwRightDir
-            // 
-            lvwRightDir.Location = new Point(3, 3);
-            lvwRightDir.Name = "lvwRightDir";
-            lvwRightDir.Size = new Size(364, 281);
-            lvwRightDir.TabIndex = 1;
-            lvwRightDir.UseCompatibleStateImageBehavior = false;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -218,10 +261,10 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             panel5.ResumeLayout(false);
             panel6.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -243,5 +286,11 @@
         private Panel panel6;
         private ListView lvwLeftDir;
         private ListView lvwRightDir;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
     }
 }
